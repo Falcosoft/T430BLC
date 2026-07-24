@@ -7,7 +7,7 @@ authors:
   - family-names: Bacskó
     given-names: Zoltán
 
-repository-code: https://github.com/Falcosoft/Thinkpad-T430-LCD-backlight-control-from-DOS
+repository-code: https://github.com/Falcosoft/T430BLC
 license: MIT
 
 keywords:

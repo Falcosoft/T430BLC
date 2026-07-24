@@ -82,7 +82,6 @@ This software writes directly to chipset graphics MMIO registers and performs a 
 - [Hardware and registers](docs/hardware.md)
 - [Reverse-engineering history](docs/reverse_engineering.md)
 - [Development and attribution](docs/development_history.md)
-- [Publishing on GitHub](docs/github_publication.md)
 
 ## Development and attribution
 

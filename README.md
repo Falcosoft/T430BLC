@@ -99,7 +99,7 @@ T430LCD/
 - [Design Notes](docs/DesignNotes.md)
 - [Development History](docs/DevelopmentHistory.md)
 - [Contributing](docs/Contributing.md)
-- [Coding Conventions](CODING.md)
+- [Coding Conventions](CODING.MD)
 - [Hardware Tests](HARDWARE_TESTS.md)
 - [Known Limitations](KNOWN_LIMITATIONS.md)
 

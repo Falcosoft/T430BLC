@@ -99,9 +99,9 @@ T430LCD/
 - [Design Notes](docs/DesignNotes.md)
 - [Development History](docs/DevelopmentHistory.md)
 - [Contributing](docs/Contributing.md)
-- [Coding Conventions](docs/CODING.md)
-- [Hardware Tests](docs/HARDWARE_TESTS.md)
-- [Known Limitations](docs/KNOWN_LIMITATIONS.md)
+- [Coding Conventions](CODING.md)
+- [Hardware Tests](HARDWARE_TESTS.md)
+- [Known Limitations](KNOWN_LIMITATIONS.md)
 
 ---
 
@@ -154,7 +154,7 @@ Current limitation:
 - The current implementation is **not compatible with EMM386**.
 - DPMI support is planned for a future release.
 
-See [Known Limitations](docs/KNOWN_LIMITATIONS.md).
+See [Known Limitations](KNOWN_LIMITATIONS.md).
 
 ---
 
@@ -174,15 +174,14 @@ See [LICENSE](LICENSE).
 
 ---
 
-## Acknowledgements
+## Development and attribution
 
-**Project maintainer**
+This project was developed through an interactive collaboration:
 
-- Zoltán Bacskó (Falcosoft)
+  - Zoltán Bacskó: problem definition, hardware investigation, compilation, testing on physical hardware, validation, and project maintenance.
+  - OpenAI ChatGPT (GPT-5.6 Thinking): software implementation, debugging analysis, source-code generation, refactoring, and documentation drafting.
 
-**Implementation, reverse-engineering assistance and documentation**
-
-- OpenAI ChatGPT (GPT-5.5)
+The code did not emerge as a one-shot generation. It was refined through repeated experiments on a real ThinkPad T430.
 
 ---
 

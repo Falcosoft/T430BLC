@@ -4,10 +4,10 @@ message: "If you use this project, please cite it."
 type: software
 
 authors:
-  - family-names: BacskÛ
-    given-names: Zolt·n
+  - family-names: Bacsk√≥
+    given-names: Zolt√°n
 
-repository-code: https://github.com/Falcosoft/T430BLC
+repository-code: https://github.com/Falcosoft/T430LCD
 license: MIT
 
 keywords:

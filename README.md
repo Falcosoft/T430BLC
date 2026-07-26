@@ -2,6 +2,9 @@
 
 **LCD Brightness and Aspect Ratio Control for the Lenovo ThinkPad T430 under Real MS-DOS**
 
+<img width="1156" height="651" alt="doom_ar_corrected" src="https://github.com/user-attachments/assets/91dc5051-2819-43cd-a886-4baf82a154a3" />
+<img width="1156" height="651" alt="norton_ar_corrected" src="https://github.com/user-attachments/assets/07afd952-f327-4a82-98b7-af684d500083" />
+
 T430LCD is an open-source collection of utilities that restores modern LCD functionality when running real MS-DOS on a Lenovo ThinkPad T430 with Intel HD Graphics 4000 (Ivy Bridge).
 
 The project provides:

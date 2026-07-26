@@ -42,11 +42,11 @@ The project provides:
 ### Brightness
 
 - **BLCSET** – Interactive LCD brightness control
-- **BLCINIT** – Boot-time CONFIG.SYS device driver
+- **BLCINIT** – CONFIG.SYS device driver to set LCD brightness at boot time
 
 ### Aspect Ratio
 
-- **ASPECT** – TSR that automatically restores the correct 4:3 aspect ratio for legacy DOS graphics modes
+- **ASPECT** – TSR that automatically restores the correct 4:3 aspect ratio for legacy DOS text and graphics modes
 
 ### Diagnostic Utilities
 
@@ -87,7 +87,6 @@ T430LCD/
 ├── TOOLS/      End-user utilities
 ├── DIAG/       Reverse-engineering diagnostics
 ├── INCL/       Shared include files
-├── BUILD/      Build scripts
 ├── BIN/        Optional compiled binaries
 └── docs/       Project documentation
 ```
@@ -114,19 +113,16 @@ Requirements:
 
 - Borland Turbo Assembler (TASM)
 - Borland TLINK
-- EXE2BIN (for `BLCINIT`)
 
 Build everything:
 
 ```dos
-CD BUILD
 BUILDALL
 ```
 
 Clean generated files:
 
 ```dos
-CD BUILD
 CLEANALL
 ```
 

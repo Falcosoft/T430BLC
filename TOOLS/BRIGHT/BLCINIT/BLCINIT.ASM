@@ -39,7 +39,7 @@
 .code
 org 0
 
-include COMMON.INC
+include T430LCD.INC
 
 ; ----------------------------------------------------------------------
 ; Resident DOS character-device portion

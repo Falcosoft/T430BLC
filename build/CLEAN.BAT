@@ -1,2 +1,0 @@
-@echo off
-del *.OBJ *.MAP *.EXE *.COM *.SYS COMMON.INC BLCSET.ASM BLCINIT.ASM 2>nul

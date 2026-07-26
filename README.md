@@ -1,97 +1,205 @@
-# T430BLC
+# T430LCD
 
-**LCD brightness control utilities for the Lenovo ThinkPad T430 under real MS-DOS.**
+**LCD Brightness and Aspect Ratio Control for the Lenovo ThinkPad T430 under Real MS-DOS**
 
-T430BLC controls the internal LCD backlight by programming the Intel Ivy Bridge / HD Graphics 4000 PWM registers directly. It provides both an interactive command-line utility and a boot-time CONFIG.SYS device driver.
+T430LCD is an open-source collection of utilities that restores modern LCD functionality when running real MS-DOS on a Lenovo ThinkPad T430 with Intel HD Graphics 4000 (Ivy Bridge).
 
-## Programs
+The project provides:
 
-### BLCSET.COM
+- Interactive LCD brightness control
+- Automatic boot-time brightness initialization
+- Automatic 4:3 aspect ratio correction for legacy DOS video modes
+- Reverse-engineering and diagnostic utilities
+- Complete technical documentation
 
-Sets the brightness from the DOS command line:
+---
 
-```dos
-BLCSET 01E7
+> [!NOTE]
+> **Current release:** **v2.0**
+>
+> **Implemented**
+>
+> - ✔ LCD brightness control
+> - ✔ CONFIG.SYS brightness driver
+> - ✔ Automatic aspect-ratio TSR
+> - ✔ Internal LCD support
+> - ✔ External VGA support
+> - ✔ External DVI support
+> - ✔ Reverse-engineering diagnostics
+> - ✔ Comprehensive documentation
+>
+> **Planned**
+>
+> - DPMI-compatible implementation for EMM386 systems
+
+---
+
+## Features
+
+### Brightness
+
+- **BLCSET** – Interactive LCD brightness control
+- **BLCINIT** – Boot-time CONFIG.SYS device driver
+
+### Aspect Ratio
+
+- **ASPECT** – TSR that automatically restores the correct 4:3 aspect ratio for legacy DOS graphics modes
+
+### Diagnostic Utilities
+
+Brightness:
+
+- BLCPWM
+- OPREGPM
+
+Aspect ratio:
+
+- FITREAD
+- PFDIAG
+- PFSNAP
+
+---
+
+## Supported Hardware
+
+The current release has been verified on:
+
+| Hardware | Status |
+|----------|--------|
+| Lenovo ThinkPad T430 | ✅ Verified |
+| Intel HD Graphics 4000 (Ivy Bridge) | ✅ Verified |
+| Internal 1600×900 LCD | ✅ Verified |
+| External VGA monitor | ✅ Verified |
+| External DVI monitor | ✅ Verified |
+
+At present, **only the Lenovo ThinkPad T430 is officially supported.**
+
+---
+
+## Repository Layout
+
+```text
+T430LCD/
+│
+├── TOOLS/      End-user utilities
+├── DIAG/       Reverse-engineering diagnostics
+├── INCL/       Shared include files
+├── BUILD/      Build scripts
+├── BIN/        Optional compiled binaries
+└── docs/       Project documentation
 ```
 
-The argument is a hexadecimal PWM duty value from `0000` through the detected hardware maximum. On the development T430, representative values were:
-
-| Value | Approximate level |
-|---:|---|
-| `0045` | Low |
-| `01E7` | Medium |
-| `1155` | Maximum |
-
-### BLCINIT.SYS
-
-Sets a fixed brightness once during CONFIG.SYS processing, before EMM386 is installed:
-
-```ini
-DEVICE=C:\DOS\HIMEM.SYS
-DEVICE=C:\DOS\BLCINIT.SYS 01E7
-DEVICE=C:\DOS\EMM386.EXE RAM
-DOS=HIGH,UMB
-```
-
-This avoids repeated Fn+F8 presses at every DOS boot. After initialization, DOS discards nearly all of the driver's setup and protected-mode code; only a minimal character-device header and inert request handler remain resident.
-
-## Verified hardware
-
-- Lenovo ThinkPad T430
-- Intel Core i7-3632QM
-- Intel HD Graphics 4000
-- Graphics PCI function `00:02.0`
-- Real MS-DOS with HIMEM.SYS and EMM386
-
-Other Ivy Bridge systems may use the same registers, but they have not been tested by this project.
-
-## Register path
-
-| MMIO register | Purpose |
-|---|---|
-| `BAR0 + 48250h` | CPU PWM control/enable |
-| `BAR0 + 48254h` | Current PWM duty in the low 16 bits |
-| `BAR0 + C8254h` | Maximum PWM duty in the upper 16 bits |
-
-Only `BAR0 + 48254h` is written. Its upper 16 bits are preserved, and the requested duty is clamped to the detected maximum.
-
-## Building
-
-Required tools:
-
-- Borland Turbo Assembler (TASM)
-- Borland TLINK
-- EXE2BIN
-
-From the `build` directory:
-
-```dos
-MAKE.BAT
-```
-
-Manual commands are documented in [docs/building.md](docs/building.md).
-
-## Safety
-
-This software writes directly to chipset graphics MMIO registers and performs a temporary protected-mode transition. It is hardware-specific. Keep a CONFIG.SYS bypass or recovery boot disk available when testing on a new system.
+---
 
 ## Documentation
 
-- [Architecture](docs/architecture.md)
-- [Building and installation](docs/building.md)
-- [Hardware and registers](docs/hardware.md)
-- [Reverse-engineering history](docs/reverse_engineering.md)
-- [Development and attribution](docs/development_history.md)
+- [User Guide](docs/UserGuide.md)
+- [Reverse Engineering](docs/ReverseEngineering.md)
+- [Intel Registers](docs/IntelRegisters.md)
+- [Design Notes](docs/DesignNotes.md)
+- [Development History](docs/DevelopmentHistory.md)
+- [Contributing](docs/Contributing.md)
+- [Coding Conventions](docs/CODING.md)
+- [Hardware Tests](docs/HARDWARE_TESTS.md)
+- [Known Limitations](docs/KNOWN_LIMITATIONS.md)
 
-## Development and attribution
+---
 
-This project was developed through an interactive collaboration:
+## Building
 
-- **Zoltán Bacskó:** problem definition, hardware investigation, compilation, testing on physical hardware, validation, and project maintenance.
-- **OpenAI ChatGPT (GPT-5.6 Thinking):** software implementation, debugging analysis, source-code generation, refactoring, and documentation drafting.
+Requirements:
 
-The code did not emerge as a one-shot generation. It was refined through repeated experiments on a real ThinkPad T430. See [docs/development_history.md](docs/development_history.md) for details.
+- Borland Turbo Assembler (TASM)
+- Borland TLINK
+- EXE2BIN (for `BLCINIT`)
+
+Build everything:
+
+```dos
+CD BUILD
+BUILDALL
+```
+
+Clean generated files:
+
+```dos
+CD BUILD
+CLEANALL
+```
+
+Every utility also contains its own `BUILD.BAT` and `CLEAN.BAT`.
+
+---
+
+## Design Philosophy
+
+- Perform read-only diagnostics before modifying hardware.
+- Modify only the smallest verified register set.
+- Keep hardware-sensitive code explicit and easy to audit.
+- Validate every change on real hardware.
+- Preserve all reverse-engineering tools and documentation.
+
+---
+
+## Compatibility
+
+Verified with:
+
+- MS-DOS
+- PC DOS
+- FreeDOS
+
+Current limitation:
+
+- The current implementation is **not compatible with EMM386**.
+- DPMI support is planned for a future release.
+
+See [Known Limitations](docs/KNOWN_LIMITATIONS.md).
+
+---
+
+## External Links
+
+- Latest Releases: https://github.com/Falcosoft/T430LCD/releases
+- Repository: https://github.com/Falcosoft/T430LCD
+- VOGONS discussion: https://www.vogons.org/viewtopic.php?t=111978
+
+---
 
 ## License
 
-Released under the MIT License. See [LICENSE](LICENSE).
+Released under the **MIT License**.
+
+See [LICENSE](LICENSE).
+
+---
+
+## Acknowledgements
+
+**Project maintainer**
+
+- Zoltán Bacskó (Falcosoft)
+
+**Implementation, reverse-engineering assistance and documentation**
+
+- OpenAI ChatGPT (GPT-5.5)
+
+---
+
+## Version History
+
+### v2.0
+
+Major additions since v1.0:
+
+- `BLCINIT` CONFIG.SYS brightness driver
+- `ASPECT` automatic aspect-ratio TSR
+- Complete reverse-engineering diagnostic suite
+- Comprehensive documentation
+- Modular repository organization
+- DOS-native build system
+- Project coding conventions
+
+---
+
+Contributions, hardware test reports, bug reports, and suggestions are always welcome.

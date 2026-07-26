@@ -36,7 +36,7 @@
 .code
 org 100h
 
-include COMMON.INC
+include T430LCD.INC
 
 start:
         mov     ax, cs

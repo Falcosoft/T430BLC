@@ -256,6 +256,7 @@ Confirmed during development:
 
 - MS-DOS text mode
 - standard VGA programs
+- DOOM
 - Duke Nukem 3D
 - Descent
 - Norton Commander coexistence with boot-time brightness initialization

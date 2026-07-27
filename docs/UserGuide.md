@@ -98,9 +98,10 @@ Example:
 ```ini
 DEVICE=C:\DOS\HIMEM.SYS
 DEVICE=C:\T430LCD\BLCINIT.SYS 0800
+DEVICE=C:\DOS\EMM386.EXE RAM
 ```
 
-BLCINIT sets brightness once during boot and then finishes initialization. It avoids repeatedly pressing the ThinkPad brightness hotkey, which may conflict with application shortcuts such as Norton Commander file-order controls.
+BLCINIT sets brightness once during boot and then finishes initialization. This way LCD brightness control can be used even together with EMM386. It avoids repeatedly pressing the ThinkPad brightness hotkey at every boot.
 
 ## 6. ASPECT
 
